@@ -1,0 +1,16 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=jenkins
+Group=jenkins
+WorkingDirectory=/var/lib/jenkins/workspace/mymart/
+ExecStart=/var/lib/jenkins/workspace/mymart/yeswanth/bin/gunicorn \
+          --workers 3 \
+          --bind unix:/run/gunicorn.sock/ \
+         /src/main/application.properties.jar 
+
+[Install]
+WantedBy=multi-user.target
